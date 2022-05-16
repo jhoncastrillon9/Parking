@@ -82,6 +82,10 @@ namespace Parking.Controllers
             {
                 return NotFound();
             }
+
+            var ParkiCells = await _context.ParkingCellStatus.ToListAsync();
+            ViewBag.ParkingCellStatus = new SelectList(ParkiCells, "ParkingCellStatusId", "Name");
+
             return View(parkingCell);
         }
 
@@ -117,6 +121,10 @@ namespace Parking.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            var ParkiCells = await _context.ParkingCellStatus.ToListAsync();
+            ViewBag.ParkingCellStatus = new SelectList(ParkiCells, "ParkingCellStatusId", "Name");
+
             return View(parkingCell);
         }
 

@@ -4,11 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div style="display: flex; justify-content: space-between;">
+  <div id="emptyDiv">
+      <h1>Pagos</h1>
+  </div>
+  <div> <a class="btn btn-primary"  asp-action="Create">Crear nuevo</a></div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -37,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.DateCreate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PaymentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PaymentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PaymentId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.PaymentId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.PaymentId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.PaymentId">Eliminar</a>
             </td>
         </tr>
 }

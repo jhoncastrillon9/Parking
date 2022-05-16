@@ -4,11 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div style="display: flex; justify-content: space-between;">
+  <div id="emptyDiv">
+      <h1>Estado de las celdas/h1>
+  </div>
+  <div> <a class="btn btn-primary"  asp-action="Create">Crear nuevo</a></div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -25,9 +27,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ParkingCellStatusId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ParkingCellStatusId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ParkingCellStatusId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ParkingCellStatusId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.ParkingCellStatusId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.ParkingCellStatusId">Eliminar</a>
             </td>
         </tr>
 }

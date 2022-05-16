@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Parking.Data;
@@ -22,9 +18,9 @@ namespace Parking.Controllers
         // GET: CheckIngCheckOuts
         public async Task<IActionResult> Index()
         {
-              return _context.CheckIngCheckOut != null ? 
-                          View(await _context.CheckIngCheckOut.ToListAsync()) :
-                          Problem("Entity set 'ParkingContext.CheckIngCheckOut'  is null.");
+            return _context.CheckIngCheckOut != null ?
+                        View(await _context.CheckIngCheckOut.ToListAsync()) :
+                        Problem("Entity set 'ParkingContext.CheckIngCheckOut'  is null.");
         }
 
         // GET: CheckIngCheckOuts/Details/5
@@ -74,6 +70,84 @@ namespace Parking.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            return View(checkIngCheckOut);
+        }
+
+        public async Task<IActionResult> CreateChecking()
+        {
+            var typeChecks = await _context.TypeCheck.ToListAsync();
+            ViewBag.TypeChecks = new SelectList(typeChecks, "TypeCheckId", "Name");
+
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
+            return View();
+        }
+
+        // POST: CheckIngCheckOuts/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateChecking([Bind("CheckIngCheckOutId,VehicleId,TypeCheckId,DateCreate")] CheckIngCheckOut checkIngCheckOut)
+        {
+            var vehicle = await _context.Vehicles
+           .FirstOrDefaultAsync(m => m.VehicleId == checkIngCheckOut.VehicleId);
+
+            var cellForUpdate = _context.ParkingCell
+           .FirstOrDefaultAsync(m => m.ParkingCellId == vehicle.ParkingCellId).Result;
+
+            var statusCell = await _context.ParkingCellStatus.FirstOrDefaultAsync(m => m.Name == "Ocupada");
+           cellForUpdate.ParkingCellStatusId = statusCell.ParkingCellStatusId;
+
+            var cellUpdate = _context.ParkingCell.Update(cellForUpdate);
+             
+
+            var typeCheck = await _context.TypeCheck.ToListAsync();
+            checkIngCheckOut.DateCreate = DateTime.Now;
+            checkIngCheckOut.TypeCheckId = typeCheck.Where(x => x.Name == "Ingreso").FirstOrDefault().TypeCheckId;
+            _context.Add(checkIngCheckOut);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+            return View(checkIngCheckOut);
+        }
+
+        public async Task<IActionResult> CreateCheckOut()
+        {
+            var typeChecks = await _context.TypeCheck.ToListAsync();
+            ViewBag.TypeChecks = new SelectList(typeChecks, "TypeCheckId", "Name");
+
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
+            return View();
+        }
+
+        // POST: CheckIngCheckOuts/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCheckOut([Bind("CheckIngCheckOutId,VehicleId,TypeCheckId,DateCreate")] CheckIngCheckOut checkIngCheckOut)
+        {
+
+            var vehicle = await _context.Vehicles
+            .FirstOrDefaultAsync(m => m.VehicleId == checkIngCheckOut.VehicleId);
+
+            var cellForUpdate = _context.ParkingCell
+           .FirstOrDefaultAsync(m => m.ParkingCellId == vehicle.ParkingCellId).Result;
+
+            var statusCell = await _context.ParkingCellStatus.FirstOrDefaultAsync(m => m.Name == "Libre");
+            cellForUpdate.ParkingCellStatusId = statusCell.ParkingCellStatusId;
+
+            var cellUpdate = _context.ParkingCell.Update(cellForUpdate);
+
+            var typeCheck = await _context.TypeCheck.ToListAsync();
+            checkIngCheckOut.DateCreate = DateTime.Now;
+            checkIngCheckOut.TypeCheckId = typeCheck.Where(x => x.Name == "Salida").FirstOrDefault().TypeCheckId;
+            _context.Add(checkIngCheckOut);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
             return View(checkIngCheckOut);
         }
 
@@ -167,14 +241,14 @@ namespace Parking.Controllers
             {
                 _context.CheckIngCheckOut.Remove(checkIngCheckOut);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CheckIngCheckOutExists(int id)
         {
-          return (_context.CheckIngCheckOut?.Any(e => e.CheckIngCheckOutId == id)).GetValueOrDefault();
+            return (_context.CheckIngCheckOut?.Any(e => e.CheckIngCheckOutId == id)).GetValueOrDefault();
         }
     }
 }

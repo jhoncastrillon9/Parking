@@ -22,8 +22,8 @@ namespace Parking.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-              return _context.Movie != null ? 
-                          View(await _context.Movie.ToListAsync()) :
+              return _context.Users != null ? 
+                          View(await _context.Users.ToListAsync()) :
                           Problem("Entity set 'ParkingContext.Users'  is null.");
         }
 

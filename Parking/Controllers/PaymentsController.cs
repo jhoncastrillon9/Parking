@@ -22,8 +22,8 @@ namespace Parking.Controllers
         // GET: Payments
         public async Task<IActionResult> Index()
         {
-              return _context.Movie != null ? 
-                          View(await _context.Movie.ToListAsync()) :
+              return _context.Payments != null ? 
+                          View(await _context.Payments.ToListAsync()) :
                           Problem("Entity set 'ParkingContext.Payments'  is null.");
         }
 

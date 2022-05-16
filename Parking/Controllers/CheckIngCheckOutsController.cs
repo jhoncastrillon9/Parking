@@ -22,8 +22,8 @@ namespace Parking.Controllers
         // GET: CheckIngCheckOuts
         public async Task<IActionResult> Index()
         {
-              return _context.Movie != null ? 
-                          View(await _context.Movie.ToListAsync()) :
+              return _context.CheckIngCheckOut != null ? 
+                          View(await _context.CheckIngCheckOut.ToListAsync()) :
                           Problem("Entity set 'ParkingContext.CheckIngCheckOut'  is null.");
         }
 

@@ -22,8 +22,8 @@ namespace Parking.Controllers
         // GET: TypeChecks
         public async Task<IActionResult> Index()
         {
-              return _context.Movie != null ? 
-                          View(await _context.Movie.ToListAsync()) :
+              return _context.TypeCheck != null ? 
+                          View(await _context.TypeCheck.ToListAsync()) :
                           Problem("Entity set 'ParkingContext.TypeCheck'  is null.");
         }
 

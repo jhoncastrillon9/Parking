@@ -42,6 +42,9 @@ namespace Parking.Controllers
                 return NotFound();
             }
 
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
+
             return View(payments);
         }
 

@@ -47,9 +47,9 @@ namespace Parking.Controllers
 
         // GET: ParkingCells/Create
         public async Task<IActionResult> Create()
-        {
-            var ParkiCell=  await _context.ParkingCellStatus.ToListAsync();
-            ViewBag.ParkingCellStatusId var tt = new SelectListItem { }
+        {           
+            var ParkiCells=  await _context.ParkingCellStatus.ToListAsync();            
+            ViewBag.ParkingCellStatus = new SelectList(ParkiCells, "ParkingCellStatusId", "Name");
             return View();
         }
 

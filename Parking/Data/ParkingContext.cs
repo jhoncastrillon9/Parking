@@ -14,10 +14,11 @@ namespace Parking.Data
         {
         }
 
-        public DbSet<Parking.Models.Movie>? Movie { get; set; }
+        public DbSet<Movie>? Movie { get; set; }
 
-        public DbSet<Parking.Models.ParkingCellStatus>? ParkingCellStatus { get; set; }
+        public DbSet<ParkingCellStatus> ParkingCellStatus { get; set; }
 
-        public DbSet<Parking.Models.ParkingCell>? ParkingCell { get; set; }
+        public DbSet<ParkingCell> ParkingCell { get; set; }
+        public DbSet<CheckIngCheckOut> CheckIngCheckOut { get; set; }
     }
 }

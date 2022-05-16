@@ -7,7 +7,9 @@ namespace Parking.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Id del estado de la celda")]
         public int ParkingCellStatusId { get; set; }
+        [Display(Name = "Estado de la celda")]
         public string Name { get; set; }
     }
 }

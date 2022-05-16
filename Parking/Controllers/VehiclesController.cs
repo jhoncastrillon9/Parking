@@ -41,13 +41,16 @@ namespace Parking.Controllers
             {
                 return NotFound();
             }
-
+            var ParkiCells = await _context.ParkingCell.ToListAsync();
+            ViewBag.ParkingCell = new SelectList(ParkiCells, "ParkingCellId", "Name");
             return View(vehicles);
         }
 
         // GET: Vehicles/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var ParkiCells = await _context.ParkingCell.ToListAsync();
+            ViewBag.ParkingCell = new SelectList(ParkiCells, "ParkingCellId", "Name");
             return View();
         }
 
@@ -80,6 +83,10 @@ namespace Parking.Controllers
             {
                 return NotFound();
             }
+
+            var ParkiCells = await _context.ParkingCell.ToListAsync();
+            ViewBag.ParkingCell = new SelectList(ParkiCells, "ParkingCellId", "Name");
+
             return View(vehicles);
         }
 

@@ -46,8 +46,12 @@ namespace Parking.Controllers
         }
 
         // GET: Payments/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
+
             return View();
         }
 
@@ -80,6 +84,11 @@ namespace Parking.Controllers
             {
                 return NotFound();
             }
+
+
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
+
             return View(payments);
         }
 
@@ -115,6 +124,10 @@ namespace Parking.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
+
             return View(payments);
         }
 

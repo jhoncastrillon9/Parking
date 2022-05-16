@@ -46,8 +46,13 @@ namespace Parking.Controllers
         }
 
         // GET: CheckIngCheckOuts/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var typeChecks = await _context.TypeCheck.ToListAsync();
+            ViewBag.TypeChecks = new SelectList(typeChecks, "TypeCheckId", "Name");
+
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
             return View();
         }
 
@@ -80,6 +85,13 @@ namespace Parking.Controllers
             {
                 return NotFound();
             }
+
+            var typeChecks = await _context.TypeCheck.ToListAsync();
+            ViewBag.TypeChecks = new SelectList(typeChecks, "TypeCheckId", "Name");
+
+            var vehicles = await _context.Vehicles.ToListAsync();
+            ViewBag.Vehicles = new SelectList(vehicles, "VehicleId", "Plate");
+
             return View(checkIngCheckOut);
         }
 

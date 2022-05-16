@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Parking.Models.CheckIngCheckOut>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeCheckId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeCheckId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CheckIngCheckOutId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CheckIngCheckOutId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CheckIngCheckOutId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -17,8 +17,11 @@ namespace Parking.Data
         public DbSet<Movie>? Movie { get; set; }
 
         public DbSet<ParkingCellStatus> ParkingCellStatus { get; set; }
-
         public DbSet<ParkingCell> ParkingCell { get; set; }
         public DbSet<CheckIngCheckOut> CheckIngCheckOut { get; set; }
+        public DbSet<Users> Users { get; set; }
+        public DbSet<TypeCheck> TypeCheck { get; set; }
+        public DbSet<Vehicles> Vehicles { get; set; }
+        public DbSet<Payments> Payments { get; set; }        
     }
 }
